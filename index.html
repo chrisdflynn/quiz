@@ -1,0 +1,65 @@
+<!doctype html>
+<html ng-app="quizApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Quiz</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="js/controller.js"></script>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+<div ng-controller="QuizController">
+	<div id="login" class="{{loginDisplay}}">
+		<p>To begin the quiz, enter your name in the field below:</p>
+		<input type="text" ng-model="usernameInput.text" />
+		<input type="submit" ng-click="login()" value="Start Quiz" />
+	</div>
+
+	<div id="quiz" class="{{quizDisplay}}">
+		<h2>Welcome {{username}}</h2>
+		<form novalidate>
+			<div ng-repeat="question in questions">
+				<p>{{question.question_text}}</p>
+				<ul ng-switch="question.kind">
+				  	<li 
+				  		ng-switch-when="choose_one"
+				  		ng-repeat="answer_choice in questions[$index].answer_choices">
+				  		<input 
+				  			type="radio" 
+				  			ng-model="$parent.userResponses[$parent.$index]" 
+				  			value="{{answer_choice}}" />{{answer_choice}}</li>
+				  	<li 
+				  		ng-switch-when="choose_many"
+				  		ng-repeat="answer_choice in questions[$index].answer_choices">
+				  		<input 
+				  			type="checkbox"
+				  			ng-model="$parent.userResponses[$parent.$index][answer_choice]" 
+				  			value="{{answer_choice}}" />{{answer_choice}}</li>
+				  	<li ng-switch-when="free_text">
+				  		<input type="text" ng-model="$parent.userResponses[$parent.$index]" />
+			   </ul>
+			</div>
+			<input type="submit" ng-click="submit()" value="Submit" />
+		</form>
+	</div>
+
+	<div id="currentAttempt">
+		<h3>Last Attempt</h3>
+		<p>{{results[0]}}</p>
+	</div>
+
+	<div id="prevAttempts">
+		<h3>Previous Attempts</h3>
+		<ul>
+			<li ng-repeat="result in results track by $index" ng-if="$index>0">
+				{{result}}
+			</li>
+		</ul>
+	</div>
+
+</div>
+
+</body>
+</html>

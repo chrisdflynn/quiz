@@ -1,0 +1,19 @@
+[
+  {
+    "kind": "choose_one",
+    "question_text": "What color is they sky?",
+    "answer_choices": ["red", "blue", "green", "yellow"],
+    "correct_answer": "blue"
+  },
+  {
+    "kind": "choose_many",
+    "question_text": "What color are apples?",
+    "answer_choices": ["red", "blue", "green", "yellow", "purple"],
+    "correct_answers": ["red", "green", "yellow"]
+  },
+  {
+    "kind": "free_text",
+    "question_text": "What color is the ocean?",
+    "correct_answers": ["blue"]
+  }
+]
